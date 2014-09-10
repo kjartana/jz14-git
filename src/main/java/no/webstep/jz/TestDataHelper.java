@@ -1,11 +1,13 @@
 package no.webstep.jz;
 
+import com.google.common.base.Strings;
+
 import java.util.Random;
 
 /**
  * Hello world!
  */
-public class TestDataHelper {
+public abstract class TestDataHelper {
 
     private static Random random = new Random();
 
@@ -13,16 +15,18 @@ public class TestDataHelper {
         System.out.println("Hello World!");
     }
 
-    public String randomWhatever() {
-        if (1 == 1) {
-            return "nice";
-        } else {
-            return "seriously";
-        }
+    public static String randomWhatever() {
+        return "still around";
     }
 
-    private static String range(int lower, int upper) {
-        return String.valueOf(random.nextInt(upper - lower) + lower);
+    static String range(int lower, int upper, int minLength) {
+        String r = String.valueOf(random.nextInt(upper - lower) + lower);
+        r = Strings.repeat("0", minLength - r.length()) + r;
+        return r;
+    }
+
+    public static String randomSsn() {
+        return range(0, 31, 2) + range(0, 12, 2) + range(0, 99, 2) + range(10000, 99999, 5);
     }
 
     public static String randomOrgNum() {
